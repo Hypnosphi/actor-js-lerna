@@ -31,6 +31,9 @@ collectors:
       # false by default, set to true if you want all dependency updates in a single PR
       batch_mode: false
 
+      # false by default, set to true if you want bootstrap_command to run once before creating PR in batch mode
+      batch_bootstrap: false
+
       # Settings to configure the PR itself can be found
       # on the dependencies-io/pullrequest repo
       # https://github.com/dependencies-io/pullrequest/tree/0.6.0#dependenciesyml

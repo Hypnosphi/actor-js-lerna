@@ -10,6 +10,7 @@ const ACTOR_ID = process.env.ACTOR_ID
 const GIT_SHA = process.env.GIT_SHA
 const NPMRC = process.env.SETTING_NPMRC
 const BATCH_MODE = JSON.parse(process.env.SETTING_BATCH_MODE || 'false')
+const BATCH_BOOTSTRAP = JSON.parse(process.env.SETTING_BATCH_BOOTSTRAP || 'false')
 const dependencies = JSON.parse(process.env.DEPENDENCIES)['dependencies']
 
 shell.set('-e')  // any failing shell commands will fail
@@ -100,7 +101,9 @@ dependencies.forEach(function(dependency) {
 
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, indent) + '\n')
 
-  bootstrap()
+  if (!BATCH_BOOTSTRAP) {
+    bootstrap()
+  }
 
   console.log('This is the git status after performing the update:')
   shell.exec('git status')
@@ -119,6 +122,10 @@ dependencies.forEach(function(dependency) {
 })
 
 if (BATCH_MODE) {
+  if (BATCH_BOOTSTRAP) {
+    bootstrap()
+  }
+
   const msg = dependencies.length + ' packages updated by dependencies.io'
   dependencyJSON = JSON.stringify({'dependencies': dependencies})
 
