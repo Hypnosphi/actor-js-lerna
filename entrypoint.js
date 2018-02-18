@@ -124,6 +124,12 @@ dependencies.forEach(function(dependency) {
 if (BATCH_MODE) {
   if (BATCH_BOOTSTRAP) {
     bootstrap()
+
+    console.log('This is the git status after performing the batch bootstrap:')
+    shell.exec('git status')
+
+    shell.exec('git add .')
+    shell.exec('git diff --staged --quiet || git commit -m "batch bootstrap"')
   }
 
   const msg = dependencies.length + ' packages updated by dependencies.io'
