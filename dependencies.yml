@@ -1,29 +1,4 @@
+version: 2
 collectors:
-
-- type: python-pip
-  path: requirements_test.txt
-  actors:
-  - type: python-pip
-    versions: "Y.Y.Y"
-
-- type: git-repo
-  path: git_dependencies.yml
-  actors:
-  - type: find-replace
-    versions: "Y.Y.Y"
-    dependencies: "https://github.com/dependencies-io/pullrequest"
-    settings:
-      paths:
-      - git_dependencies.yml
-      - Dockerfile
-      - README.md
-      patterns:
-      - "installed: {version}"
-      - "PULLREQUEST_VERSION={version}"
-      - "https://github.com/dependencies-io/pullrequest/tree/{version}#dependenciesyml"
-
-- type: js-npm
+- type: js
   path: /
-  actors:
-  - type: js-npm
-    versions: "Y.Y.Y"
